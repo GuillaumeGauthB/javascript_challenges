@@ -7,116 +7,208 @@
     <title>Document</title>
 </head>
 <body>
-    Challenge 1: Countdown<br>
-    <iframe width="500px" height="200px">
+    <style>
+        iframe{
+            height: 100vh;
+            width:100vw;
+        }
+    </style>
+    Challenge 1: Countdown
+    <iframe>
         <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Challenge 1 - Get Countdown</title>
-        </head>
-        <body>
-            <style>
-                *{
-                    color: #434A50;
-                }
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge 1 - Get Countdown</title>
+</head>
+<body>
+    <style>
+        *{
+            color: #434A50;
+        }
 
-                h1{
-                    text-align: center;
-                    background-color: rgba(255, 255, 255, 0.575);
-                    border-radius: 5px;
-                }
+        h1{
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.575);
+            border-radius: 5px;
+        }
 
-                .temps{
-                    display: flex;
-                    flex-flow: row nowrap;
-                    justify-content: space-around;
-                    text-align: center;
-                    background-color: rgba(255, 255, 255, 0.575);
-                    border-radius: 5px;
-                    box-shadow: 2px 2px 2px 2px rgba(71, 71, 71, 0.486);
-                }
+        .temps{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-around;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.575);
+            border-radius: 5px;
+            box-shadow: 2px 2px 2px 2px rgba(71, 71, 71, 0.486);
+        }
 
-                .maintext{
-                    font-size: 2em;
-                }
+        .maintext{
+            font-size: 2em;
+        }
 
-                html{
-                    background: url("https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg")  center center fixed;    
-                    -webkit-background-size: cover;
-                    -moz-background-size: cover;
-                    -o-background-size: cover;
-                    /*background-repeat: no-repeat;*/
-                    background-size: cover;
-                }
-            </style>
-            <h1>Challenge Countdown</h1>
+        html{
+            background: url("https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg")  center center fixed;    
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            /*background-repeat: no-repeat;*/
+            background-size: cover;
+        }
+    </style>
+    <h1>Challenge Countdown</h1>
 
-            <div class="temps">
-                <div>
-                    <p id="annee" class="maintext"></p>
-                    <p class="subtext">years</p>
-                </div>
-                <div>
-                    <p id="mois" class="maintext"></p>
-                    <p class="subtext">months</p>
-                </div>
-                <div>
-                    <p id="jours" class="maintext"></p>
-                    <p class="subtext">days</p>
-                </div>
-                <div>
-                    <p id="heures" class="maintext"></p>
-                    <p class="subtext">hours</p>
-                </div>
-                <div>
-                    <p id="minutes" class="maintext"></p>
-                    <p class="subtext">minutes</p>
-                </div>
-                <div>
-                    <p id="secondes" class="maintext"></p>
-                    <p class="subtext">seconds</p>
-                </div>
-            </div>
+    <div class="temps">
+        <div>
+            <p id="annee" class="maintext"></p>
+            <p class="subtext">years</p>
+        </div>
+        <div>
+            <p id="mois" class="maintext"></p>
+            <p class="subtext">months</p>
+        </div>
+        <div>
+            <p id="jours" class="maintext"></p>
+            <p class="subtext">days</p>
+        </div>
+        <div>
+            <p id="heures" class="maintext"></p>
+            <p class="subtext">hours</p>
+        </div>
+        <div>
+            <p id="minutes" class="maintext"></p>
+            <p class="subtext">minutes</p>
+        </div>
+        <div>
+            <p id="secondes" class="maintext"></p>
+            <p class="subtext">seconds</p>
+        </div>
+    </div>
 
-            <script src="class_countdown.js"></script>
-            <script>
+    <script>
+        // Class to get a countdown between two dates
+class Countdown {
+    constructor(targetDate, currentDate) {
+        if(typeof currentDate == 'string')
+            this.currentDate = new Date(currentDate);
+        else if(typeof currentDate == 'object')
+            this.currentDate = currentDate;
+        else
+            this.currentDate = new Date();
 
-                let currentDate=new Date();
-                let countdown = new Countdown('December 24, 2022 00:00:00');
-                //countdown.setYear('targetDate', 2023)
-                
-                const secondes = document.getElementById("secondes");
-                const minutes = document.getElementById("minutes");
-                const heures = document.getElementById("heures");
-                const jours = document.getElementById("jours");
-                const mois = document.getElementById("mois");
-                //const annee = document.getElementById("");
+        if(typeof targetDate == 'string')
+            this.targetDate = new Date(targetDate);
+        else if(typeof targetDate == 'object')
+            this.targetDate = targetDate;
+    }
 
-                //console.log(countdown.getFullCountdownMiliseconds);
-                //console.log(countdown.getFullCountdownMonths);
-                //console.log(countdown.getFullCountdown);
-                
-                //let dateBirthday=new Date('December 24, '+currentDate.getFullYear+' 00:00:00');
+    // Set a Custom Year to Either Target or Current Date
+    setYear(toModify='', target = ''){
+        if(toModify=='targetDate'){
+            if(target!='')
+                this.targetDate.setFullYear(target);
+            else
+                this.targetDate.setFullYear(new Date().getFullYear());
+            return this.targetDate;
+        }
+        else if(toModify=='currentDate'){
+            if(target!='')
+                this.currentDate.setFullYear(target);
+            else
+                this.currentDate.setFullYear(new Date().getFullYear());
+                return this.currentDate;
+        }
+    }
+
+    // Get Full Countdown in Miliseconds
+    get getFullCountdownMiliseconds(){
+        return this.targetDate.getTime() - this.currentDate.getTime();
+    }
+
+    // Get Full Countdown in Days
+    get getFullCountdownDays(){
+        return this.getFullCountdownMiliseconds / (1000 * 60 * 60 * 24)
+    }
+
+    // Get Full Countdown in Months
+    get getFullCountdownMonths(){
+        return this.targetDate.getMonth() - this.currentDate.getMonth();
+    }
+
+    // Get Full Countdown in Years
+    get getFullCountdownYears(){
+        return this.targetDate.getFullYear() - this.currentDate.getFullYear();
+    }
+
+    // Update the current date
+    get updateCurrentTime(){
+        this.currentDate = new Date()
+        return this.currentDate;
+    }
+
+    // Get Full Countdown
+    get getFullCountdown(){
+        //return this.getFullCountdownDays;
+        let countdownMS = this.getFullCountdownMiliseconds;
+        const countdownDaysBetweenTarget = new Date(this.targetDate.getFullYear(), this.targetDate.getMonth() + 1, 0).getDate();
+        const countdownDaysBetweenCurrent = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0).getDate();
+        this.countdownSeconds = 60 - this.targetDate.getSeconds() - this.currentDate.getSeconds() - 1;
+        this.countdownMinutes = 60 - this.targetDate.getMinutes() - this.currentDate.getMinutes() - 1;
+        this.countdownHours = 24 - this.targetDate.getHours() - this.currentDate.getHours() - 1;
+        if(this.targetDate.getMonth() != this.currentDate.getMonth()){
+            this.countdownDays = (countdownDaysBetweenTarget - (countdownDaysBetweenTarget - this.targetDate.getDate()) - 1) + (countdownDaysBetweenCurrent - this.currentDate.getDate());
+            this.countdownMonths = this.getFullCountdownMonths - 1;
+        }
+        else{
+            this.countdownDays = countdownDaysBetweenTarget - countdownDaysBetweenCurrent;
+            this.countdownMonths = this.getFullCountdownMonths;
+        }
+        this.countdownYears = this.getFullCountdownYears;
+        //return countdownDays;
+        return this.countdownDays+'-'+this.countdownMonths+'-'+this.countdownYears+' '+this.countdownHours+'-'+this.countdownMinutes+'-'+this.countdownSeconds;
+        //this.countdownDays = this.countdownMS / (1000 * 60 * 60 *24);
+        //this.countdownDays = this.countdownMS / (1000 * 60 * 60 *24);
+
+    }
+}
+    </script>
+    <script>
+
+        let currentDate=new Date();
+        let countdown = new Countdown('December 24, 2022 00:00:00');
+        //countdown.setYear('targetDate', 2023)
+        
+        const secondes = document.getElementById("secondes");
+        const minutes = document.getElementById("minutes");
+        const heures = document.getElementById("heures");
+        const jours = document.getElementById("jours");
+        const mois = document.getElementById("mois");
+        //const annee = document.getElementById("");
+
+        //console.log(countdown.getFullCountdownMiliseconds);
+        //console.log(countdown.getFullCountdownMonths);
+        //console.log(countdown.getFullCountdown);
+        
+        //let dateBirthday=new Date('December 24, '+currentDate.getFullYear+' 00:00:00');
 
 
-                setInterval(countdownSecondes, 1000);
+        setInterval(countdownSecondes, 1000);
 
-                function countdownSecondes(){
-                    countdown.updateCurrentTime;
-                    console.log(countdown.getFullCountdown);
-                    secondes.innerHTML = countdown.countdownSeconds;
-                    minutes.innerHTML = countdown.countdownMinutes;
-                    heures.innerHTML = countdown.countdownHours;
-                    jours.innerHTML = countdown.countdownDays;
-                    mois.innerHTML = countdown.countdownMonths;
-                    annee.innerHTML = countdown.countdownYears;
-                }
-            </script>
-        </body>
-        </html>       
+        function countdownSecondes(){
+            countdown.updateCurrentTime;
+            console.log(countdown.getFullCountdown);
+            secondes.innerHTML = countdown.countdownSeconds;
+            minutes.innerHTML = countdown.countdownMinutes;
+            heures.innerHTML = countdown.countdownHours;
+            jours.innerHTML = countdown.countdownDays;
+            mois.innerHTML = countdown.countdownMonths;
+            annee.innerHTML = countdown.countdownYears;
+        }
+    </script>
+</body>
+</html>  
     </iframe>
 </body>
 </html>
